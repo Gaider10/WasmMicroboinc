@@ -39,7 +39,7 @@ Client.Api.projects_compatible = (payload, callback) => {
         projectsBinaries: [
             {
                 binary: {
-                    downloadURL: "http://localhost:8000/bin2/lce12eyelargewiiu.js",
+                    downloadURL: "https://gaider10.github.io/WasmMicroboinc/lce12eyelargewiiu/lce12eyelargewiiu.js",
                 },
                 project: {
                     id: 5,
