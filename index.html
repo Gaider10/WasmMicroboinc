@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="main.js"></script>
+        <script>
+            function setApiKey() {
+                let apiKeyInput = document.getElementById("apiKeyInput");
+                let apiKey = apiKeyInput.value;
+                if (apiKey != "") {
+                    Client.setApiKey(apiKey);
+                    apiKeyInput.value = "";
+                }
+            }
+
+            function setThreadCount() {
+                let threadCount = parseInt(document.getElementById("threadCountInput").value) || 1;
+                threadCount = Math.min(Math.max(threadCount, 1), 64);
+                Client.setThreadCount(threadCount);
+            }
+
+            function setReceiveNew(value) {
+                Client.receiveNew = value;
+            }
+
+            function setRunNew(value) {
+                Client.runNew = value;
+            }
+
+            function setDownloadBinaries(value) {
+                Client.downloadBinaries = value;
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <a>WASM MICROBOINC</a>
+        </div>
+        <div>
+            <a id="completedTasksOutput">Completed Tasks: 0</a>
+        </div>
+        <div>
+            <a id="queuedTasksOutput">Queued Tasks: 0</a>
+        </div>
+        <div>
+            <a id="runningTasksOutput">Running Tasks: 0</a>
+        </div>
+        <div>
+            <label for="apiKeyInput" id="apiKeyOutput">Api key is not set</label><br>
+            <input type="text" id="apiKeyInput">
+            <button onclick="setApiKey()">Set api key</button>
+        </div>
+        <div>
+            <label for="threadCountInput" id="threadCountOutput">Current thread count: 1</label><br>
+            <input type="number" min="1" max="64" id="threadCountInput" value="1">
+            <button onclick="setThreadCount(this)">Set thread count</button>
+        </div>
+        <div>
+            <label for="downloadBinariedInput">Download new binaries</label>
+            <input type="checkbox" id="downloadBinariedInput" checked="true" oninput="setDownloadBinaries(this.checked)">
+        </div>
+        <div>
+            <label for="receiveNewInput">Receive new tasks</label>
+            <input type="checkbox" id="receiveNewInput" checked="true" oninput="setReceiveNew(this.checked)">
+        </div>
+        <div>
+            <label for="runNewInput">Run new tasks</label>
+            <input type="checkbox" id="runNewInput" checked="true" oninput="setRunNew(this.checked)">
+        </div>
+    </body>
+</html>
