@@ -37,12 +37,28 @@ Client.Api.projects_compatible = (payload, callback) => {
     // Client.Api.send("POST", "/projects/compatible", payload, callback);
     callback({
         projectsBinaries: [
+            // {
+            //     binary: {
+            //         downloadURL: "https://gaider10.github.io/WasmMicroboinc/lce12eyelargewiiu/lce12eyelargewiiu.js",
+            //     },
+            //     project: {
+            //         id: 5,
+            //     },
+            // },
             {
                 binary: {
-                    downloadURL: "https://gaider10.github.io/WasmMicroboinc/lce12eyelargewiiu/lce12eyelargewiiu.js",
+                    downloadURL: "https://gaider10.github.io/WasmMicroboinc/lce12eyemediumxbox/lce12eyemediumxbox.js",
                 },
                 project: {
-                    id: 5,
+                    id: 6,
+                },
+            },
+            {
+                binary: {
+                    downloadURL: "https://gaider10.github.io/WasmMicroboinc/lce12eyelargexbox/lce12eyelargexbox.js",
+                },
+                project: {
+                    id: 7,
                 },
             }
         ]
@@ -75,6 +91,8 @@ Client.setApiKey = (apiKey) => {
 
 Client.run_task = (binary, task) => {
     console.log(`Starting task ${task.id} (assignment ${task.assignment_id}) from project ${task.project}`);
+
+    task.start = new Date().getTime();
 
     let mod = {
         stdoutText: "",
@@ -152,12 +170,14 @@ Client.check_running_tasks = () => {
             Client.running_tasks.splice(i, 1);
             console.log(`Finished task ${task.id} (assignment ${task.assignment_id}) from project ${task.project}`);
             Client.completed_tasks++;
+            let end = new Date().getTime();
+            let duration = Math.round((end - task.start) * 1000000);
             Client.Api.results_submit({
                 StdErr: mod.stderrText,
                 StdOut: mod.stdoutText,
                 ExitCode: 0,
                 AssignmentID: task.assignment_id,
-                ExecutionTime: 0,
+                ExecutionTime: duration,
             }, () => {});
         }
     }
